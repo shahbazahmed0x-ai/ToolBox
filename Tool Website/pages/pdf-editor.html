@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Editor — ToolBox</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="../index.html" class="logo">🧰 ToolBox</a>
+    <nav id="navLinks" class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="image-to-pdf.html">Image to PDF</a>
+      <a href="image-converter.html">Image Converter</a>
+      <a href="pdf-editor.html">PDF Editor</a>
+    </nav>
+    <button id="navToggle" class="nav-toggle">☰</button>
+  </div>
+</header>
+
+<div class="page-header container">
+  <h1>✍️📄 PDF Editor</h1>
+  <p>Add text, signatures, and images to your PDF. Rotate or delete pages. Export when done.</p>
+</div>
+
+<div class="container editor-wrap">
+
+  <div class="panel upload-prompt" id="uploadPrompt">
+    <div class="dropzone" id="dropZone">
+      <div class="dz-icon">📄</div>
+      <p><strong>Click to upload</strong> or drag & drop a PDF file here</p>
+      <input type="file" id="pdfInput" accept="application/pdf" hidden>
+    </div>
+    <p class="status-text" id="loadStatus"></p>
+  </div>
+
+  <div id="editorApp" class="hidden">
+    <div class="toolbar">
+      <button class="tool-btn active" data-tool="select">🖱 Select</button>
+      <button class="tool-btn" data-tool="text">🔤 Add Text</button>
+      <select id="fontSizeSelect">
+        <option>12</option><option>14</option><option selected>16</option><option>20</option><option>24</option><option>32</option>
+      </select>
+      <input type="color" id="textColorInput" value="#000000">
+      <span class="divider"></span>
+      <button class="tool-btn" id="signatureBtn">✒️ Signature</button>
+      <button class="tool-btn" id="imageBtn">🖼️ Image</button>
+      <input type="file" id="imageUploadInput" accept="image/*" hidden>
+      <span class="divider"></span>
+      <button class="tool-btn" id="rotateBtn">↻ Rotate</button>
+      <button class="tool-btn danger" id="deletePageBtn">🗑 Delete Page</button>
+      <span class="divider"></span>
+      <button class="tool-btn" id="prevPageBtn">‹ Prev</button>
+      <span id="pageIndicator">Page 1 / 1</span>
+      <button class="tool-btn" id="nextPageBtn">Next ›</button>
+      <button class="tool-btn" id="zoomOutBtn">－</button>
+      <button class="tool-btn" id="zoomInBtn">＋</button>
+      <span class="spacer"></span>
+      <button class="btn btn-primary" id="downloadPdfBtn">⬇ Download PDF</button>
+    </div>
+
+    <div class="editor-body">
+      <aside class="page-list" id="pageList"></aside>
+      <div class="canvas-wrapper">
+        <div class="canvas-inner" id="canvasInner">
+          <div class="deleted-banner hidden" id="deletedBanner">
+            This page will be removed from the final PDF
+            <button class="btn btn-small" id="restorePageBtn">Restore</button>
+          </div>
+          <canvas id="pdfCanvas"></canvas>
+          <div id="overlay"></div>
+        </div>
+      </div>
+    </div>
+    <p class="status-text" id="status"></p>
+  </div>
+
+</div>
+
+<div class="modal hidden" id="sigModal">
+  <div class="modal-content">
+    <h3>Draw your signature</h3>
+    <canvas id="sigCanvas" width="500" height="200"></canvas>
+    <div class="modal-actions">
+      <label>Color:</label>
+      <input type="color" id="sigColor" value="#000000">
+      <button class="btn btn-small btn-outline" id="sigClearBtn">Clear</button>
+      <button class="btn btn-small btn-outline" id="sigCancelBtn">Cancel</button>
+      <button class="btn btn-small btn-primary" id="sigUseBtn">Use Signature</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="container"><p>© <span id="year"></span> ToolBox</p></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/pdf-editor.js"></script>
+</body>
+</html>
